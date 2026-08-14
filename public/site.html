@@ -120,6 +120,99 @@
   .about{background:var(--cream);} 
   /* ...rest of styles unchanged... */
 
+  /* ---------- Extras gallery (huella / homenaje) ---------- */
+  .extras{background:var(--cream-2);} 
+  .extras-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:40px;} 
+  @media(max-width:860px){.extras-grid{grid-template-columns:1fr;}}
+  .extra-card{
+    display:flex;
+    flex-direction:column;
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(11,25,44,0.06);
+    background:#fff;
+  }
+  .extra-card img{
+    width:100%;
+    max-height:220px;
+    object-fit:contain;
+    background:var(--cream);
+    padding:18px;
+    display:block;
+  }
+  .extra-card .body{
+    padding:20px;
+    background:var(--cream);
+    color:var(--navy);
+  }
+  .extra-card .price-pill{
+    display:inline-block;background:var(--navy);color:var(--gold-soft);
+    padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:600;margin-bottom:10px;
+  }
+  @media(max-width:560px){
+    .extra-card img{max-height:180px;padding:14px;}
+    .extra-card .body{padding:16px;}
+  }
+
+  /* ---------- Catálogo de urnas (sección estática con precios) ---------- */
+  .urnas{background:var(--cream);} 
+  .urnas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px;} 
+  @media(max-width:960px){.urnas-grid{grid-template-columns:repeat(2,1fr);}} 
+  @media(max-width:620px){.urnas-grid{grid-template-columns:1fr;}} 
+  .urna-cat-card{
+    background:#fff;border-radius:var(--radius);overflow:hidden;
+    border:1px solid rgba(11,25,44,0.07);box-shadow:var(--shadow);
+    display:flex;flex-direction:column;
+  }
+  .urna-cat-card img{width:100%;height:190px;object-fit:cover;background:#f2ede0;}
+  .urna-cat-card .body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:6px;flex:1;}
+  .urna-cat-card h4{margin:0;color:var(--navy);font-size:17px;font-family:'Playfair Display',serif;}
+  .urna-cat-card p{margin:0 0 6px;color:var(--ink-soft);font-size:13.5px;line-height:1.5;}
+  .price-table{margin-top:auto;padding-top:10px;border-top:1px dashed #e7e0cd;} 
+  .price-table div{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;color:var(--ink-soft);} 
+  .price-table div b{color:var(--gold-dim);font-size:14px;font-weight:700;} 
+
+  /* ---------- Configurador (Wizard) ---------- */
+  .configurador{background:var(--navy);color:var(--on-navy);} 
+  .wizard-card{
+    background:var(--cream);color:var(--ink);border-radius:20px;
+    box-shadow:0 30px 80px -25px rgba(0,0,0,0.6);
+    padding:40px;max-width:920px;margin:0 auto;
+  }
+  @media(max-width:640px){.wizard-card{padding:24px 18px;}}
+  .steps-track{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:34px;flex-wrap:wrap;} 
+  .step-dot{
+    width:30px;height:30px;border-radius:50%;background:#e7e0cd;color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;
+    border:2px solid transparent;transition:.2s;
+  }
+  .step-dot.active{background:var(--navy);color:var(--gold-soft);} 
+  .step-dot.done{background:var(--gold);color:var(--navy);} 
+  .step-line{width:26px;height:2px;background:#e7e0cd;} 
+  .step-panel{display:none;} 
+  .step-panel.active{display:block;animation:fadeIn .35s ease;} 
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}} 
+  .step-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);margin:0 0 6px;} 
+  .step-note{
+    background:#fff;border-left:3px solid var(--gold);border-radius:8px;
+    padding:14px 16px;font-size:13.8px;color:var(--ink-soft);margin:16px 0 26px;line-height:1.65;
+  }
+  .option-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;} 
+  @media(max-width:560px){.option-grid{grid-template-columns:1fr;}} 
+  .option-card{
+    background:#fff;border:1.5px solid #e7ecd;border-radius:12px;padding:20px;cursor:pointer;
+    text-align:left;transition:.18s;display:block;width:100%;font-family:'Poppins',sans-serif;
+  }
+  .option-card:hover{border-color:var(--gold-dim);} 
+  .option-card.selected{border-color:var(--gold);background:#fdf9ee;box-shadow:0 0 0 3px rgba(212,175,55,0.15);} 
+  .option-card h4{margin:0 0 4px;color:var(--navy);font-size:16px;font-family:'Playfair Display',serif;} 
+  .option-card p{margin:0;font-size:13px;color:var(--ink-soft);} 
+  .option-card .p{color:var(--gold-dim);font-weight:700;font-size:13.5px;margin-top:8px;} 
+
+  ::selection{background:var(--gold);color:var(--navy);} 
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;} 
+
   /* Menú móvil */
   .menu-btn{
     display:none;flex-direction:column;justify-content:center;gap:5px;
@@ -140,7 +233,7 @@
     color:var(--on-navy-dim);text-decoration:none;padding:15px 24px;
     border-bottom:1px solid rgba(243,239,225,0.06);font-size:14.5px;
   }
-  .mobile-nav a:hover{color:var(--gold-soft);}
+  .mobile-nav a:hover{color:var(--gold-soft);} 
   @media(max-width:860px){
     .menu-btn{display:flex;} 
   }
@@ -197,13 +290,13 @@
 <!-- Modal: Guía de despedida -->
 <div id="guideModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="guideModalTitle" style="display:none;">
   <div class="modal-backdrop" id="guideModalBackdrop" style="position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:120;display:none;"></div>
-  <div class="modal-content" role="document" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(920px,94vw);max-height:80vh;overflow:auto;background:#fff;border-radius:12px;padding:20px;z-index:121;display:none;">
+  <div class="modal-content" role="document" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(920px,94vw);max-height:80vh;overflow:auto;background:#fff;border-radiu[...]">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;">
       <h3 id="guideModalTitle" style="margin:0;font-family:'Playfair Display',serif;">Guía de despedida</h3>
       <button type="button" id="guideModalClose" aria-label="Cerrar guía" style="background:transparent;border:none;font-size:20px;cursor:pointer;">✕</button>
     </div>
     <div>
-      <p>Bienvenido a la Guía de despedida de NEXTLI. Aquí encontrarás información y pasos para acompañarte en el proceso de despedida: opciones de servicios, cómo elegir una urna, y recursos de apoyo.</p>
+      <p>Bienvenido a la Guía de despedida de NEXTLI. Aquí encontrarás información y pasos para acompañarte en el proceso de despedida: opciones de servicios, cómo elegir una urna, y recurs[...]</p>
       <ul>
         <li><strong>Paso 1:</strong> Elige el tipo de servicio (individual, comunitario, urgente).</li>
         <li><strong>Paso 2:</strong> Selecciona la urna adecuada según peso y preferencia estética.</li>
@@ -279,7 +372,7 @@
           <li>Acompañamiento en cada momento</li>
         </ul>
         <div class="price">De <b>$600 a $2,500 MXN</b> según peso</div>
-        <a class="go" href="https://wa.me/525521889698?text=Hola%20NEXTLI%2C%20necesito%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20eutanasia%20asistida." target="_blank" rel="noopener">Solicitar información</a>
+        <a class="go" href="https://wa.me/525521889698?text=Hola%20NEXTLI%2C%20necesito%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20eutanasia%20asistida." target="_blank" rel="noopener">Sol[...]</a>
       </div>
     </div>
   </div>
