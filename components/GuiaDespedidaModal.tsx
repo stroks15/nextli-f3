@@ -77,20 +77,23 @@ export default function GuiaDespedidaModal({ open, onClose }: GuiaDespedidaModal
         </div>
 
         <div className="px-6 py-5">
+          {/* Mensaje de contención (apertura) */}
+          <p className="text-sm text-slate-700 mb-4">Lamentamos profundamente tu pérdida. Tómate el tiempo que necesites; no estás solo. Estamos aquí para acompañarte con respeto y cariño.</p>
+
           <ol className="list-decimal list-inside space-y-4 text-sm text-slate-700">
             <li>
-              <p className="font-medium text-slate-800">Cuidado inmediato en casa</p>
-              <p className="mt-1">Mantén a tu mascota en un lugar tranquilo y cálido, lejos de ruidos y luz intensa. Evita moverla innecesariamente y cúbrela suavemente si es apropiado.</p>
+              <p className="font-medium text-slate-800">Su descanso en casa</p>
+              <p className="mt-1">Si lo deseas, cúbrelo suavemente con una manta que le gustara y colócalo en un lugar tranquilo y fresco. Evita manipularlo en exceso y procura mantener la calma a su alrededor — pequeñas atenciones como su juguete o una foto pueden traer consuelo.</p>
             </li>
 
             <li>
-              <p className="font-medium text-slate-800">Recolección respetuosa</p>
-              <p className="mt-1">Nuestro equipo de NEXTLI acude a domicilio con la máxima dignidad y discreción para la recolección y traslado. Estamos capacitados para manejar la situación con cuidado y respeto.</p>
+              <p className="font-medium text-slate-800">El tiempo es tuyo</p>
+              <p className="mt-1">No hay prisa. Permítete estar con tu familia, despedirte, llorar o recordar en silencio. Estos momentos son personales: si necesitas más tiempo, tómalo; nosotros nos adaptamos.</p>
             </li>
 
             <li>
-              <p className="font-medium text-slate-800">Preservar su memoria</p>
-              <p className="mt-1">Existen urnas y recuerdos físicos (placas, huellas, marcos) que te permiten honrar su vida. En el configurador puedes ver opciones y personalizaciones disponibles.</p>
+              <p className="font-medium text-slate-800">Nuestro acompañamiento</p>
+              <p className="mt-1">Cuando nos contactes, nuestro equipo llegará a tu domicilio con discreción y cuidado. Procedemos con la máxima dignidad: actuamos con calma, respeto y transparencia para trasladar a tu compañero cuando tú lo decidas.</p>
             </li>
           </ol>
 
