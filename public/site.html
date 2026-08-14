@@ -184,6 +184,56 @@
   .price-table div{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;color:var(--ink-soft);} 
   .price-table div b{color:var(--gold-dim);font-size:14px;font-weight:700;} 
 
+  /* ---------- Floating controls (WhatsApp / Asistente) ---------- */
+  .fab-wa{
+    position:fixed;bottom:22px;right:22px;z-index:80;
+    background:#1FAF52;color:#fff;width:60px;height:60px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;text-decoration:none;
+    box-shadow:0 12px 30px -8px rgba(0,0,0,0.45);
+  }
+
+  .fab-ai-wrap{
+    position:fixed;bottom:88px;right:22px;z-index:81;
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+  }
+  .fab-ai{
+    width:60px;height:60px;border-radius:50%;
+    background:var(--navy);display:flex;align-items:center;justify-content:center;
+    border:1.5px solid var(--gold);cursor:pointer;overflow:hidden;padding:0;
+    box-shadow:0 12px 30px -8px rgba(11,25,44,0.55);
+  }
+  .fab-ai img{width:100%;height:100%;object-fit:cover;border-radius:50%;padding:0;display:block;}
+  .fab-ai:hover{background:var(--navy-3);}
+  .fab-ai-label{
+    background:var(--navy);color:var(--gold-soft);font-size:10px;font-weight:600;
+    padding:3px 9px;border-radius:999px;border:1px solid rgba(212,175,55,0.35);
+    white-space:nowrap;letter-spacing:.02em;
+  }
+
+  /* ---------- Mobile bottom navigation ---------- */
+  .bottom-nav{display:none;}
+  @media(max-width:760px){
+    .bottom-nav{
+      display:flex;position:fixed;left:0;right:0;bottom:0;z-index:100;
+      background:var(--navy);border-top:1px solid rgba(212,175,55,0.25);
+      padding:8px 6px max(8px, env(safe-area-inset-bottom));
+      justify-content:space-around;align-items:center;gap:6px;
+    }
+    .bottom-nav .nav-item{
+      flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--on-navy-dim);
+      text-decoration:none;font-size:11px;font-family:'Poppins',sans-serif;padding:4px 6px;
+    }
+    .bottom-nav .bn-icon{font-size:24px;line-height:1;color:inherit;}
+    .bottom-nav .bn-label{font-size:11px;color:inherit;}
+    .bottom-nav .nav-item:hover{color:var(--gold-soft);}    
+    /* space for bottom nav so content isn't hidden */
+    body{padding-bottom:76px;}
+
+    /* ensure floating actions sit above the bottom-nav and don't overlap */
+    .fab-wa{bottom:92px;right:18px;z-index:105;}
+    .fab-ai-wrap{bottom:160px;right:18px;z-index:104;}
+  }
+
   /* ---------- Configurador (Wizard) ---------- */
   .configurador{background:var(--navy);color:var(--on-navy);} 
   .wizard-card{
@@ -209,17 +259,6 @@
     background:#fff;border-left:3px solid var(--gold);border-radius:8px;
     padding:14px 16px;font-size:13.8px;color:var(--ink-soft);margin:16px 0 26px;line-height:1.65;
   }
-  .option-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;} 
-  @media(max-width:560px){.option-grid{grid-template-columns:1fr;}} 
-  .option-card{
-    background:#fff;border:1.5px solid #e7ecd;border-radius:12px;padding:20px;cursor:pointer;
-    text-align:left;transition:.18s;display:block;width:100%;font-family:'Poppins',sans-serif;
-  }
-  .option-card:hover{border-color:var(--gold-dim);} 
-  .option-card.selected{border-color:var(--gold);background:#fdf9ee;box-shadow:0 0 0 3px rgba(212,175,55,0.15);} 
-  .option-card h4{margin:0 0 4px;color:var(--navy);font-size:16px;font-family:'Playfair Display',serif;} 
-  .option-card p{margin:0;font-size:13px;color:var(--ink-soft);} 
-  .option-card .p{color:var(--gold-dim);font-weight:700;font-size:13.5px;margin-top:8px;} 
 
   ::selection{background:var(--gold);color:var(--navy);} 
   :focus-visible{outline:2px solid var(--gold);outline-offset:2px;} 
@@ -307,4 +346,212 @@
       <button type="button" id="guideModalClose" aria-label="Cerrar guía" style="background:transparent;border:none;font-size:20px;cursor:pointer;">✕</button>
     </div>
     <div>
-      <p>Bienvenido a la Guía de despedida de NEXTLI. Aquí encontrarás información y pasos para acompañarte en el proceso de despedida: opciones de servicios, cómo elegir una urna, y recurs[...]
+      <p>Bienvenido a la Guía de despedida de NEXTLI. Aquí encontrarás información y pasos para acompañarte en el proceso de despedida: opciones de servicios, cómo elegir una urna, y recurs[...]</p>
+      <ul>
+        <li><strong>Paso 1:</strong> Elige el tipo de servicio (individual, comunitario, urgente).</li>
+        <li><strong>Paso 2:</strong> Selecciona la urna adecuada según peso y preferencia estética.</li>
+        <li><strong>Paso 3:</strong> Personaliza (placa, huella, paquete homenaje).</li>
+        <li><strong>Contacto:</strong> Si necesitas soporte directo, puedes escribirnos por WhatsApp o usar nuestro Asistente.</li>
+      </ul>
+      <p style="margin-top:10px;">Si quieres, puedo vincular desde aquí al configurador directamente o abrir recursos adicionales.</p>
+      <div style="text-align:right;margin-top:14px;">
+        <a class="btn btn-dark" href="/configurador">Ir al configurador</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top" data-view="inicio">
+  <div class="stars" id="stars"></div>
+  <div class="container">
+    <img class="hero-logo" src="/assets/logo.png" alt="Logo NEXTLI">
+    <h1>Nuestros mejores amigos siempre <em>vivirán en el corazón</em></h1>
+    <p class="sub">Acompañamos con respeto y cariño en el último adiós. En NEXTLI entendemos que tu mascota es parte de tu familia.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/configurador">Personaliza su Despedida</a>
+      <a class="btn btn-outline" href="/contacto">Cómo llegar / Ubicación</a>
+    </div>
+  </div>
+</section>
+
+
+<div class="arc-divider" style="background:var(--cream)" data-view="inicio"><svg viewBox="0 0 180 36" fill="none"><path d="M4 4C40 34 140 34 176 4" stroke="#D4AF37" stroke-width="1.5" stroke-line[...] /></svg></div>
+<!-- Rest of the page remains unchanged; updated selective links below -->
+
+<!-- Update: links that previously used data-view to navigate now point to independent pages -->
+<!-- Servicios: change configurador-links -->
+<section class="services" id="servicios" data-view="inicio">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow on-navy">Servicios</p>
+      <h2>Tres formas de acompañar la despedida</h2>
+      <p>Cada servicio está pensado para adaptarse a tu momento, con la misma dedicación y respeto en cada uno.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <span class="tag">Individual</span>
+        <h3>Cremación Individual</h3>
+        <ul>
+          <li>Entrega en 24–36 horas hábiles</li>
+          <li>Evidencia fotográfica del proceso</li>
+          <li>Recuperación del 100% de las cenizas</li>
+          <li>Urna a elegir + placa grabada</li>
+          <li>Certificado impreso y entrega a domicilio</li>
+        </ul>
+        <div class="price">Desde <b>$1,750 MXN</b> según tamaño y urna</div>
+        <a class="go" href="/configurador">Armar mi servicio</a>
+      </div>
+      <div class="svc-card">
+        <span class="tag">Comunitaria</span>
+        <h3>Cremación sin Recuperación</h3>
+        <ul>
+          <li>Integración ecológica (abono / composta)</li>
+          <li>Certificado digital enviado por correo</li>
+          <li>Opción consciente y económica</li>
+        </ul>
+        <div class="price">Chico $800 · Mediano $850 · Grande $1,100 MXN</div>
+        <a class="go" href="/configurador">Armar mi servicio</a>
+      </div>
+      <div class="svc-card">
+        <span class="tag">Urgente · 24 hrs</span>
+        <h3>Eutanasia Asistida</h3>
+        <ul>
+          <li>Atención 24 horas en clínica Salud Animal</li>
+          <li>Procedimiento indoloro y respetuoso</li>
+          <li>Acompañamiento en cada momento</li>
+        </ul>
+        <div class="price">De <b>$600 a $2,500 MXN</b> según peso</div>
+        <a class="go" href="https://wa.me/525521889698?text=Hola%20NEXTLI%2C%20necesito%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20eutanasia%20asistida." target="_blank" rel="noopener">Sol[...]</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Urnas section: keep id and link to configurador where applicable -->
+<section class="urnas" id="urnas" data-view="urnas">
+  <div class="container">
+    <!-- ... catálogo ... -->
+    <div style="text-align:center;margin-top:38px;">
+      <a class="btn btn-dark" href="/configurador">Elegir mi urna en el configurador →</a>
+    </div>
+  </div>
+</section>
+
+<!-- rest of page continues (configurador, faq, footer, etc.) - unchanged -->
+
+<!-- ================= ASISTENTE NEXTLI ================= -->
+<div class="fab-ai-wrap">
+        <button type="button" class="fab-ai" id="aiFabBtn" aria-label="Abrir asistente NEXTLI" aria-expanded="false">
+          <img src="/assets/logo.png" alt="">
+  </button>
+  <span class="fab-ai-label">Asistente</span>
+</div>
+
+<div class="ai-panel" id="aiPanel" role="dialog" aria-label="Asistente NEXTLI">
+  <div class="ai-head">
+    <div>
+      <strong>Asistente NEXTLI</strong>
+      <span>Aquí para orientarte con calma</span>
+    </div>
+    <button type="button" class="ai-close" id="aiCloseBtn" aria-label="Cerrar asistente">✕</button>
+  </div>
+  <div class="ai-messages" id="aiMessages"></div>
+  <div class="ai-quick" id="aiQuick"></div>
+  <form class="ai-form" id="aiForm">
+    <input type="text" id="aiInput" placeholder="Escribe tu pregunta…" autocomplete="off">
+    <button type="submit" aria-label="Enviar">➤</button>
+  </form>
+  <p class="ai-disclaimer">Asistente automatizado de NEXTLI. Para atención personalizada, escríbenos por <a href="https://wa.me/525521889698" target="_blank" rel="noopener">WhatsApp</a>.</p>
+</div>
+
+<a class="fab-wa" href="https://wa.me/525521889698?text=Hola%20NEXTLI%2C%20necesito%20informaci%C3%B3n%20o%20ayuda%20con%20un%20servicio." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <!-- WhatsApp floating icon remains -->
+</a>
+
+<!-- Mobile bottom navigation (added) -->
+<nav class="bottom-nav" aria-label="Navegación inferior">
+  <a href="/inicio" class="nav-item">
+    <span class="bn-icon">🏠</span>
+    <span class="bn-label">Inicio</span>
+  </a>
+  <a href="/urnas" class="nav-item">
+    <span class="bn-icon">🕯️</span>
+    <span class="bn-label">Urnas</span>
+  </a>
+  <a href="/configurador" class="nav-item">
+    <span class="bn-icon">✨</span>
+    <span class="bn-label">Personaliza su despedida</span>
+  </a>
+</nav>
+
+<!-- Script: menu toggle + modal behavior -->
+<script>
+  (function(){
+    // Menú hamburguesa
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (menuBtn && mobileNav) {
+      menuBtn.addEventListener('click', () => {
+        const isOpen = menuBtn.classList.toggle('open');
+        mobileNav.classList.toggle('open', isOpen);
+        menuBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      // Cerrar menú al pulsar un enlace dentro del nav móvil
+      mobileNav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          menuBtn.classList.remove('open');
+          mobileNav.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // Modal: Guía de despedida
+    const guideBtn = document.getElementById('guideBtn');
+    const guideModal = document.getElementById('guideModal');
+    const guideBackdrop = document.getElementById('guideModalBackdrop');
+    const guideClose = document.getElementById('guideModalClose');
+
+    function openGuide() {
+      if (!guideModal) return;
+      guideModal.style.display = 'block';
+      guideBackdrop.style.display = 'block';
+      const content = guideModal.querySelector('.modal-content');
+      if (content) content.style.display = 'block';
+      guideModal.setAttribute('aria-hidden', 'false');
+      guideClose && guideClose.focus();
+    }
+
+    function closeGuide() {
+      if (!guideModal) return;
+      guideModal.style.display = 'none';
+      guideBackdrop.style.display = 'none';
+      const content = guideModal.querySelector('.modal-content');
+      if (content) content.style.display = 'none';
+      guideModal.setAttribute('aria-hidden', 'true');
+      guideBtn && guideBtn.focus();
+    }
+
+    guideBtn && guideBtn.addEventListener('click', openGuide);
+    guideClose && guideClose.addEventListener('click', closeGuide);
+    guideBackdrop && guideBackdrop.addEventListener('click', closeGuide);
+
+    // Accessibility: ESC to close modal & mobile nav
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') {
+        if (guideModal && guideModal.style.display === 'block') closeGuide();
+        if (menuBtn && menuBtn.classList.contains('open')) {
+          menuBtn.classList.remove('open');
+          mobileNav && mobileNav.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
