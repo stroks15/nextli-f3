@@ -78,22 +78,22 @@ export default function GuiaDespedidaModal({ open, onClose }: GuiaDespedidaModal
 
         <div className="px-6 py-5">
           {/* Mensaje de contención (apertura) */}
-          <p className="text-sm text-slate-700 mb-4">Lamentamos profundamente tu pérdida. Tómate el tiempo que necesites; no estás solo. Estamos aquí para acompañarte con respeto y cariño.</p>
+          <p className="text-sm text-slate-700 mb-4">Siento con todo el corazón la pérdida de tu mejor amigo. Tómate tu tiempo; no estás solo. Te acompañamos con ternura y respeto.</p>
 
           <ol className="list-decimal list-inside space-y-4 text-sm text-slate-700">
             <li>
               <p className="font-medium text-slate-800">Su descanso en casa</p>
-              <p className="mt-1">Si lo deseas, cúbrelo suavemente con una manta que le gustara y colócalo en un lugar tranquilo y fresco. Evita manipularlo en exceso y procura mantener la calma a su alrededor — pequeñas atenciones como su juguete o una foto pueden traer consuelo.</p>
+              <p className="mt-1">Si quieres, cúbrelo con su manta favorita y ponlo en un lugar fresco y tranquilo. Mantén la luz baja y evita ruidos o movimientos bruscos; un objeto querido junto a él puede ser un consuelo.</p>
             </li>
 
             <li>
               <p className="font-medium text-slate-800">El tiempo es tuyo</p>
-              <p className="mt-1">No hay prisa. Permítete estar con tu familia, despedirte, llorar o recordar en silencio. Estos momentos son personales: si necesitas más tiempo, tómalo; nosotros nos adaptamos.</p>
+              <p className="mt-1">No hay prisa. Háblale, abrázalo, llora si lo necesitas. Haz lo que sientas: cada gesto es válido y solo para ti.</p>
             </li>
 
             <li>
-              <p className="font-medium text-slate-800">Nuestro acompañamiento</p>
-              <p className="mt-1">Cuando nos contactes, nuestro equipo llegará a tu domicilio con discreción y cuidado. Procedemos con la máxima dignidad: actuamos con calma, respeto y transparencia para trasladar a tu compañero cuando tú lo decidas.</p>
+              <p className="font-medium text-slate-800">Desde aquí — cómo despedirlo</p>
+              <p className="mt-1">Cuando estés listo, desde aquí podrás elegir cómo quieres que él parta: la forma de la despedida, el recuerdo físico o la urna que guardará su huella, y los detalles que harán que su presencia siga viva en tu memoria. Entendemos tu dolor; cada elección será cuidada con ternura y respeto, pensando en que lo que conserves le hable siempre a tu corazón.</p>
             </li>
           </ol>
 
