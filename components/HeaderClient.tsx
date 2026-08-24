@@ -9,7 +9,7 @@ export default function HeaderClient() {
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-neutral-100">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         <Link href="/inicio" className="flex items-center gap-3 no-underline">
-          <img src="/assets/logo.png" alt="NEXTLI" className="h-8 w-auto" />
+          <img src="/images/logo.png" alt="NEXTLI" className="h-8 w-auto" />
           <span className="font-serif text-stone-800 text-lg">NEXTLI</span>
         </Link>
 
