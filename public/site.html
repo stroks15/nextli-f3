@@ -234,6 +234,20 @@
   .step-dot.active{background:var(--navy);color:var(--gold-soft);}
   .step-dot.done{background:var(--gold);color:var(--navy);}
   .step-line{width:26px;height:2px;background:#e7e0cd;}
+
+  .wizard-progress{margin:0 0 18px;}
+  .wizard-progress-label{
+    display:block;text-align:center;font-size:12.5px;letter-spacing:.06em;
+    color:var(--gold-dim);font-weight:600;margin-bottom:8px;
+  }
+  .wizard-progress-track{
+    display:block;height:6px;border-radius:999px;background:#e7e0cd;overflow:hidden;
+  }
+  .wizard-progress-fill{
+    display:block;height:100%;width:0%;border-radius:999px;
+    background:linear-gradient(90deg,var(--gold),var(--gold-soft));
+    transition:width .35s ease;
+  }
   .step-panel{display:none;}
   .step-panel.active{display:block;animation:fadeIn .35s ease;}
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
@@ -242,8 +256,7 @@
     background:#fff;border-left:3px solid var(--gold);border-radius:8px;
     padding:14px 16px;font-size:13.8px;color:var(--ink-soft);margin:16px 0 26px;line-height:1.65;
   }
-  .option-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  @media(max-width:560px){.option-grid{grid-template-columns:1fr;}}
+  .option-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
   .option-card{
     background:#fff;border:1.5px solid #e7e0cd;border-radius:12px;padding:20px;cursor:pointer;
     text-align:left;transition:.18s;display:block;width:100%;font-family:'Poppins',sans-serif;
@@ -322,6 +335,10 @@
     background:var(--navy);color:var(--gold-soft);padding:10px 18px;border-radius:999px;
     font-size:14px;font-weight:600;white-space:nowrap;
   }
+  .total-chip.total-empty{
+    background:var(--cream-2);color:var(--ink-soft);
+    font-size:12.5px;font-weight:500;max-width:220px;white-space:normal;
+  }
 
   .summary-box{background:#fff;border:1.5px solid #e7e0cd;border-radius:12px;padding:22px 24px;margin-bottom:18px;}
   .summary-box h4{margin:0 0 12px;color:var(--navy);font-family:'Playfair Display',serif;font-size:17px;}
@@ -329,6 +346,12 @@
   .summary-line:last-child{border-bottom:none;}
   .summary-line b{color:var(--ink);}
   .summary-total{display:flex;justify-content:space-between;font-size:18px;font-weight:700;color:var(--navy);margin-top:10px;padding-top:12px;border-top:2px solid var(--gold);}
+
+  .send-confirmation{
+    margin-top:18px;padding:18px 20px;border-radius:12px;text-align:center;
+    background:var(--gold-soft);border:1px solid var(--gold);color:var(--navy);
+  }
+  .send-confirmation p{margin:0;font-size:15px;line-height:1.65;font-family:'Playfair Display',serif;}
 
   .faq-wrap{background:var(--cream);}
   .faq-list{max-width:760px;margin:40px auto 0;display:flex;flex-direction:column;gap:12px;}
@@ -366,24 +389,6 @@
   }
   @keyframes pulseWa{0%,100%{box-shadow:0 12px 30px -8px rgba(31,175,82,0.5);}50%{box-shadow:0 12px 30px -4px rgba(31,175,82,0.85);}}
   .fab-wa svg{width:28px;height:28px;}
-
-  .fab-ai-wrap{
-    position:fixed;bottom:96px;right:22px;z-index:81;
-    display:flex;flex-direction:column;align-items:center;gap:5px;
-  }
-  .fab-ai{
-    width:60px;height:60px;border-radius:50%;
-    background:var(--cream);display:flex;align-items:center;justify-content:center;
-    border:1.5px solid var(--gold);cursor:pointer;overflow:hidden;padding:9px;
-    box-shadow:0 12px 30px -8px rgba(11,25,44,0.55);
-  }
-  .fab-ai img{width:100%;height:100%;object-fit:contain;display:block;}
-  .fab-ai:hover{background:#fff;}
-  .fab-ai-label{
-    background:var(--navy);color:var(--gold-soft);font-size:10px;font-weight:600;
-    padding:3px 9px;border-radius:999px;border:1px solid rgba(212,175,55,0.35);
-    white-space:nowrap;letter-spacing:.02em;
-  }
 
   .ai-panel{
     position:fixed;bottom:96px;right:22px;z-index:130;
@@ -423,7 +428,6 @@
   @media(max-width:480px){
     .ai-panel{right:16px;bottom:80px;width:calc(100vw - 32px);height:64vh;}
     .fab-wa{right:16px;}
-    .fab-ai-wrap{right:16px;}
   }
 
   ::selection{background:var(--gold);color:var(--navy);}
@@ -542,7 +546,7 @@
   @media(max-width:860px){
     .app-bottom-nav{display:flex;}
     body{padding-bottom:64px;}
-    .fab-wa{bottom:78px;}
+    .fab-wa{bottom:calc(80px + env(safe-area-inset-bottom));}
   }
   .header-ai-btn{
     background:transparent;border:1px solid rgba(212,175,55,0.35);color:var(--gold-soft);
@@ -910,6 +914,10 @@
     </div>
 
     <div class="wizard-card">
+      <div class="wizard-progress" id="wizardProgress">
+        <span class="wizard-progress-label" id="progressLabel">Paso 1 de 5</span>
+        <span class="wizard-progress-track"><span class="wizard-progress-fill" id="progressFill"></span></span>
+      </div>
       <div class="steps-track" id="stepsTrack"></div>
 
       <div class="step-panel active" data-step="1">
@@ -962,24 +970,10 @@
           </div>
         </div>
 
-        <div class="field" id="weightFieldIndividual">
-          <label>Peso aproximado</label>
+        <div class="field" id="weightField">
+          <label for="weightRange">Peso aproximado</label>
           <select id="weightRange">
             <option value="">Selecciona…</option>
-            <option value="chico">0 – 10 kg</option>
-            <option value="mediano">11 – 25 kg</option>
-            <option value="grande">26 – 45 kg</option>
-            <option value="xl">Más de 45 kg</option>
-          </select>
-        </div>
-
-        <div class="field" id="weightFieldComunitaria" style="display:none">
-          <label>Peso aproximado</label>
-          <select id="weightRangeCom">
-            <option value="">Selecciona…</option>
-            <option value="chico">Chico (0 – 10 kg) · $800 MXN</option>
-            <option value="mediano">Mediano (11 – 25 kg) · $850 MXN</option>
-            <option value="grande">Grande (+25 kg) · $1,100 MXN</option>
           </select>
         </div>
 
@@ -1028,7 +1022,7 @@
 
         <div class="wizard-nav">
           <button type="button" class="btn btn-outline" onclick="goTo(2)">Atrás</button>
-          <div class="total-chip" id="runningTotal3">Total: $0 MXN</div>
+          <div class="total-chip total-empty" id="runningTotal3">Con calma, elige tu servicio para ver el estimado</div>
           <button type="button" class="btn btn-dark" onclick="goTo(4)">Continuar</button>
         </div>
       </div>
@@ -1058,7 +1052,10 @@
         <div id="summaryBox"></div>
         <div class="wizard-nav">
           <button type="button" class="btn btn-outline" onclick="goTo(4)">Atrás</button>
-          <a class="btn btn-primary" id="sendWa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+          <a class="btn btn-primary" id="sendWa" href="#" target="_blank" rel="noopener">Enviar mi solicitud — seguimos por WhatsApp</a>
+        </div>
+        <div class="send-confirmation" id="sendConfirmation" role="status" style="display:none">
+          <p>Recibimos tu solicitud. Te vamos a escribir por WhatsApp en breve para acompañarte en los siguientes pasos.</p>
         </div>
       </div>
 
@@ -1139,13 +1136,6 @@
   </button>
 </nav>
 
-<div class="fab-ai-wrap">
-  <button type="button" class="fab-ai" id="aiFabBtn" aria-label="Abrir asistente NEXTLI" aria-expanded="false">
-    <img src="/images/logo.png" alt="" onerror="this.style.opacity='0'">
-  </button>
-  <span class="fab-ai-label">Asistente</span>
-</div>
-
 <div class="ai-panel" id="aiPanel" role="dialog" aria-label="Asistente NEXTLI">
   <div class="ai-head">
     <div>
@@ -1160,7 +1150,7 @@
     <input type="text" id="aiInput" placeholder="Escribe tu pregunta…" autocomplete="off">
     <button type="submit" aria-label="Enviar">➤</button>
   </form>
-  <p class="ai-disclaimer">Asistente automatizado de NEXTLI. Para atención personalizada, escríbenos por <a href="https://wa.me/525521889698" target="_blank" rel="noopener">WhatsApp</a>.</p>
+  <p class="ai-disclaimer">Te acompañamos con calma. Para atención personalizada, escríbenos por <a href="https://wa.me/525521889698" target="_blank" rel="noopener">WhatsApp</a>.</p>
 </div>
 
 <a class="fab-wa" href="https://wa.me/525521889698?text=Hola%20NEXTLI%2C%20necesito%20informaci%C3%B3n%20o%20ayuda%20con%20un%20servicio." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
@@ -1172,16 +1162,16 @@
     <button type="button" class="guia-close" id="guiaCloseBtn" aria-label="Cerrar guía">✕</button>
     <div class="guia-scroll" id="guiaScroll">
       <p class="guia-eyebrow" id="guiaEyebrow">Guía de despedida</p>
-      <p class="guia-block" data-reveal>Siento con todo el corazón la pérdida de tu mejor amigo. Tómate tu tiempo; no estás solo. Te acompañamos con ternura y respeto.</p>
+      <p class="guia-block" data-reveal>Lamento profundamente tu pérdida. Sé que este es un momento difícil, y quiero acompañarte con calma, un paso a la vez. No hay prisa: puedes leer esto ahora o volver cuando estés listo.</p>
 
       <div class="guia-step" data-reveal>
         <h4>Paso 1 — Su descanso en casa</h4>
-        <p>Si lo deseas, cúbrelo suavemente con una manta que le gustara y colócalo en un lugar tranquilo y fresco. Evita manipularlo en exceso y procura mantener la calma a su alrededor — pequeñas atenciones como su juguete o una foto pueden traer consuelo.</p>
+        <p>Si tu compañero está en casa, puedes cubrirlo con cuidado con algo suave que le gustara, y dejarlo en un lugar fresco y tranquilo. No necesitas hacer nada más por ahora.</p>
       </div>
 
       <div class="guia-step" data-reveal>
-        <h4>Paso 2 — El tiempo es tuyo</h4>
-        <p>No hay prisa. Permítete estar con tu familia, despedirte, llorar o recordar en silencio. Estos momentos son personales: si necesitas más tiempo, tómalo; cuando estés listo, podrás elegir cómo quieres que él parta: la forma de la despedida, la urna o el recuerdo que conservará su huella, y los pequeños detalles que harán que su presencia siga viva en tu memoria. Entendemos tu dolor; cada elección será tratada con la ternura y el respeto que tu compañero merece, y con la intención de que lo que guardes le hable siempre a tu corazón.</p>
+        <h4>Paso 2 — Despídete a tu manera</h4>
+        <p>Despídete como sientas: en silencio, llorando, recordando. No hay una forma correcta de hacerlo. Cuando sientas que es momento, aquí estaremos para ayudarte a elegir cómo despedirlo, con el mismo cuidado que él te dio a ti.</p>
       </div>
 
       <div class="guia-cta" data-reveal>
@@ -1343,7 +1333,7 @@ const COM_PRICE = {chico:800, mediano:850, grande:1100};
 const COM_LABEL = {chico:'Chico (0–10 kg)', mediano:'Mediano (11–25 kg)', grande:'Grande (+25 kg)'};
 
 let state = {
-  service:null, species:'', breed:'', weight:'', weightCom:'',
+  service:null, species:'', breed:'', weight:'',
   urnId:null, plus:false, huella:false, cert:false, color:'',
 };
 
@@ -1376,6 +1366,10 @@ function goTo(step){
     if(i<step) dot.classList.add('done');
     if(i===step) dot.classList.add('active');
   }
+  const label = document.getElementById('progressLabel');
+  const fill = document.getElementById('progressFill');
+  if(label) label.textContent = 'Paso ' + step + ' de ' + TOTAL_STEPS;
+  if(fill) fill.style.width = ((step-1)/(TOTAL_STEPS-1)*100) + '%';
   document.querySelector('.wizard-card').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
@@ -1390,11 +1384,22 @@ document.querySelectorAll('[data-service]').forEach(card=>{
 document.getElementById('next1').addEventListener('click', ()=>{
   const isCom = state.service === 'comunitaria';
   document.getElementById('step2Title').textContent = isCom ? 'Paso 2 · Tamaño de tu compañero' : 'Paso 2 · Tu compañero y urna';
-  document.getElementById('weightFieldIndividual').style.display = isCom ? 'none':'block';
-  document.getElementById('weightFieldComunitaria').style.display = isCom ? 'block':'none';
+  const wSel = document.getElementById('weightRange');
+  wSel.innerHTML = '<option value="">Selecciona…</option>';
+  const opts = isCom
+    ? [['chico','Chico (0 – 10 kg) · $800 MXN'],['mediano','Mediano (11 – 25 kg) · $850 MXN'],['grande','Grande (+25 kg) · $1,100 MXN']]
+    : [['chico','0 – 10 kg'],['mediano','11 – 25 kg'],['grande','26 – 45 kg'],['xl','Más de 45 kg']];
+  opts.forEach(([v,txt])=>{
+    const o = document.createElement('option');
+    o.value = v; o.textContent = txt; wSel.appendChild(o);
+  });
+  state.weight = '';
+  wSel.value = '';
+  document.getElementById('next2').disabled = true;
   document.getElementById('urnPickerWrap').style.display = isCom ? 'none':'block';
   document.getElementById('breedField').style.display = 'none';
   document.getElementById('species').value='';
+  renderUrns(null);
   goTo(2);
 });
 
@@ -1406,11 +1411,8 @@ document.getElementById('species').addEventListener('change', (e)=>{
 document.getElementById('breed').addEventListener('change', (e)=>{ state.breed = e.target.value; });
 document.getElementById('weightRange').addEventListener('change', (e)=>{
   state.weight = e.target.value;
+  document.getElementById('next2').disabled = !state.weight;
   updateSuggestion();
-});
-document.getElementById('weightRangeCom').addEventListener('change', (e)=>{
-  state.weightCom = e.target.value;
-  document.getElementById('next2').disabled = !state.weightCom;
 });
 
 function suggestSize(){
@@ -1488,7 +1490,7 @@ document.querySelectorAll('.color-swatch').forEach(sw=>{
 
 function calcBase(){
   if(state.service === 'comunitaria'){
-    return COM_PRICE[state.weightCom] || 0;
+    return COM_PRICE[state.weight] || 0;
   }
   if(state.service === 'individual' && state.urnId){
     const u = URNS.find(x=>x.id===state.urnId);
@@ -1505,9 +1507,35 @@ function calcExtras(){
 }
 function calcTotal(){ return calcBase() + calcExtras(); }
 function updateRunningTotal(){
-  document.getElementById('runningTotal3').textContent = 'Total: $' + calcTotal().toLocaleString() + ' MXN';
+  const total = calcTotal();
+  const chip = document.getElementById('runningTotal3');
+  if(total === 0){
+    chip.textContent = 'Total: con calma, elige para ver tu estimado';
+    chip.classList.add('total-empty');
+  } else {
+    chip.textContent = 'Total estimado: $' + total.toLocaleString() + ' MXN';
+    chip.classList.remove('total-empty');
+  }
 }
 updateRunningTotal();
+(function(){
+  const label = document.getElementById('progressLabel');
+  const fill = document.getElementById('progressFill');
+  if(label) label.textContent = 'Paso 1 de ' + TOTAL_STEPS;
+  if(fill) fill.style.width = '0%';
+})();
+
+(function(){
+  const send = document.getElementById('sendWa');
+  const conf = document.getElementById('sendConfirmation');
+  if(!send || !conf) return;
+  send.addEventListener('click', function(){
+    conf.style.display = 'block';
+    setTimeout(function(){
+      conf.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }, 60);
+  });
+})();
 
 function renderSummary(){
   const isCom = state.service === 'comunitaria';
@@ -1519,7 +1547,7 @@ function renderSummary(){
   lines += line('Servicio', isCom ? 'Cremación sin recuperación / comunitaria' : 'Cremación individual');
   lines += line('Mascota', (document.getElementById('petName').value || '—'));
   lines += line('Especie / Raza', `${state.species||'—'}${state.breed? ' / '+state.breed:''}`);
-  lines += line('Tamaño', isCom ? COM_LABEL[state.weightCom] : SIZE_LABEL[state.weight]);
+  lines += line('Tamaño', isCom ? COM_LABEL[state.weight] : SIZE_LABEL[state.weight]);
   if(!isCom) lines += line('Urna', urn ? urn.name : '—');
   if(state.plus) lines += line('Adicional', 'Paquete Plus — Homenaje completo (+$500)');
   if(state.huella) lines += line('Adicional', 'Huella con pelo de mascota (+$200)');
@@ -1549,7 +1577,7 @@ function buildWaLink(){
 *Servicio:* ${isCom ? 'Cremación Comunitaria' : 'Cremación Individual'}
 *Mascota:* ${val('petName')} (${state.species||'—'}${state.breed? ' - '+state.breed:''}, ${val('petAge')} aprox.)
 *Urna Elegida:* ${isCom ? 'N/A (servicio comunitario)' : (urn? urn.name : '—')}
-*Tamaño / Peso:* ${isCom ? COM_LABEL[state.weightCom] : SIZE_LABEL[state.weight]}
+*Tamaño / Peso:* ${isCom ? COM_LABEL[state.weight] : SIZE_LABEL[state.weight]}
 *Adicionales:* ${extras.length? extras.join(', ') : 'Ninguno'}
 *Color de Vinilo/Letras:* ${state.color || 'N/A'}
 *Total Estimado:* $${calcTotal().toLocaleString()} MXN
@@ -1580,7 +1608,7 @@ document.querySelectorAll('.faq-item').forEach(item=>{
 });
 
 (function(){
-  const openBtns = [document.getElementById('headerAiBtn'), document.getElementById('bottomAiBtn'), document.getElementById('aiFabBtn')].filter(Boolean);
+  const openBtns = [document.getElementById('headerAiBtn'), document.getElementById('bottomAiBtn')].filter(Boolean);
   const closeBtn = document.getElementById('aiCloseBtn');
   const panel = document.getElementById('aiPanel');
   const messages = document.getElementById('aiMessages');
